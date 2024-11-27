@@ -12,4 +12,4 @@ Tech Stack 💻
 Backend: Python, Django  
 Frontend: HTML, CSS (Tailwind CSS), JavaScript (jQuery for AJAX)   
 
-Deployment link: g9y-reliable-kepler.circumeo-apps.net
+Deployment link: [g9y-reliable-kepler.circumeo-apps.net](https://g9y-reliable-kepler.circumeo-apps.net/)
