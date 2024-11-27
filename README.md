@@ -7,3 +7,8 @@ Multiple Chat Rooms: Users can create or join different chat rooms.
 Responsive Design: Optimized for both desktop and mobile devices.  
 Dark Theme: Discord-inspired design with a dark and polished aesthetic.  
 User-Friendly Interface: Easy-to-use and visually appealing chat layout.  
+
+Tech Stack 💻  
+Backend: Python, Django  
+Frontend: HTML, CSS (Tailwind CSS), JavaScript (jQuery for AJAX)  
+API Integration: GROQ API for chat completion  
