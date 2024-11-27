@@ -10,5 +10,4 @@ User-Friendly Interface: Easy-to-use and visually appealing chat layout.
 
 Tech Stack 💻  
 Backend: Python, Django  
-Frontend: HTML, CSS (Tailwind CSS), JavaScript (jQuery for AJAX)  
-API Integration: GROQ API for chat completion  
+Frontend: HTML, CSS (Tailwind CSS), JavaScript (jQuery for AJAX)   
