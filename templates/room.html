@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CAT Chatting App - {{ room }}</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        background-color: #2c2f33; /* Discord dark theme */
+        color: #ffffff;
+        font-family: "Arial", sans-serif;
+      }
+
+      .header {
+        background-color: #7289da;
+        padding: 15px 20px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .header img {
+        height: 40px;
+        width: 40px;
+        margin-right: 10px;
+      }
+
+      .chat-container {
+        margin: 20px auto;
+        max-width: 800px;
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #23272a;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .message {
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #40444b;
+        color: #ffffff;
+        font-size: 14px;
+      }
+
+      .message .user {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .message .time {
+        font-size: 12px;
+        color: #b9bbbe;
+        text-align: right;
+      }
+
+      .input-container {
+        display: flex;
+        margin-top: 20px;
+      }
+
+      .input-container input[type="text"] {
+        flex-grow: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 5px 0 0 5px;
+        background-color: #40444b;
+        color: #ffffff;
+      }
+
+      .input-container input[type="submit"] {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 0 5px 5px 0;
+        background-color: #7289da;
+        color: #ffffff;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .input-container input[type="submit"]:hover {
+        background-color: #5b6eae;
+      }
+    </style>
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="header">
+      <img
+        src="https://cdn.dribbble.com/userupload/10796155/file/original-cebc97039b0bb19b331b453ed9268350.png?resize=1200x900&vertical=center"
+        alt="Cat Logo"
+      />
+      CAT Chatting App - {{ room }}
+    </div>
+
+    <div class="chat-container">
+      <div id="display" class="chat-history">
+        <!-- Messages will load here dynamically -->
+      </div>
+
+      <div class="input-container">
+        <form id="post-form">
+          {% csrf_token %}
+          <input
+            type="hidden"
+            name="username"
+            id="username"
+            value="{{ username }}"
+          />
+          <input
+            type="hidden"
+            name="room_id"
+            id="room_id"
+            value="{{ room_details.id }}"
+          />
+          <input
+            type="text"
+            name="message"
+            id="message"
+            placeholder="Type your message here..."
+          />
+          <input type="submit" value="Send" />
+        </form>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        // Polling messages every second
+        setInterval(function () {
+          $.ajax({
+            type: "GET",
+            url: "/getMessages/{{ room }}/",
+            success: function (response) {
+              $("#display").empty();
+              response.messages.forEach((message) => {
+                const messageHTML = `
+                  <div class="message">
+                    <div class="user">${message.user}</div>
+                    <div class="text">${message.value}</div>
+                    <div class="time">${message.date}</div>
+                  </div>`;
+                $("#display").append(messageHTML);
+              });
+            },
+            error: function () {
+              alert("An error occurred while fetching messages.");
+            },
+          });
+        }, 1000);
+      });
+
+      // Sending new messages
+      $(document).on("submit", "#post-form", function (e) {
+        e.preventDefault();
+
+        $.ajax({
+          type: "POST",
+          url: "/send",
+          data: {
+            username: $("#username").val(),
+            room_id: $("#room_id").val(),
+            message: $("#message").val(),
+            csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+          },
+          success: function () {
+            $("#message").val(""); // Clear input after sending
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

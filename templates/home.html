@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CAT Chatting App</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        background-color: #2c2f33; /* Discord-like dark theme */
+        color: #ffffff;
+        font-family: "Arial", sans-serif;
+      }
+
+      .container {
+        max-width: 500px;
+        margin: 50px auto;
+        background-color: #23272a;
+        border-radius: 8px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+      }
+
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #7289da;
+        padding: 20px;
+      }
+
+      .header img {
+        height: 50px;
+        width: 50px;
+        margin-right: 10px;
+      }
+
+      .header h1 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffffff;
+      }
+
+      .form-container {
+        padding: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #ffffff;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #40444b;
+        color: #ffffff;
+      }
+
+      input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #7289da;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #5b6eae;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <img
+          src="https://cdn.dribbble.com/userupload/10796155/file/original-cebc97039b0bb19b331b453ed9268350.png?resize=1200x900&vertical=center"
+          alt="Cat Logo"
+        />
+        <h1>CAT Chatting App</h1>
+      </div>
+      <div class="form-container">
+        <form id="post-form" method="POST" action="checkview">
+          {% csrf_token %}
+          <label for="room_name">Room Name</label>
+          <input
+            type="text"
+            name="room_name"
+            id="room_name"
+            placeholder="Enter Room Name"
+          />
+          <label for="username">Username</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Enter Username"
+          />
+          <input type="submit" value="Enter Room" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
