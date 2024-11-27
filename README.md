@@ -11,3 +11,5 @@ User-Friendly Interface: Easy-to-use and visually appealing chat layout.
 Tech Stack 💻  
 Backend: Python, Django  
 Frontend: HTML, CSS (Tailwind CSS), JavaScript (jQuery for AJAX)   
+
+Deployment link: g9y-reliable-kepler.circumeo-apps.net
